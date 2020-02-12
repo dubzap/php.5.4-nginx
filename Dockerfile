@@ -33,7 +33,8 @@ RUN buildDeps=" \
     && docker-php-ext-enable memcached.so redis.so opcache.so \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
-
+RUN apt-get update && apt-get install mysql-5.5
+RUN apt-get update && apt-get install nginx
 # Install Composer.
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && ln -s $(composer config --global home) /root/composer
