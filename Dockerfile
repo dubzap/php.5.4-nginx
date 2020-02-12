@@ -1,5 +1,5 @@
-FROM php:5.4
-LABEL maintainer="dubzapkz@gmail.com"
+FROM php:5.4-fpm
+LABEL maintainer="dev@chialab.io"
 
 # Install PHP extensions and PECL modules.
 RUN buildDeps=" \
@@ -33,8 +33,9 @@ RUN buildDeps=" \
     && docker-php-ext-enable memcached.so redis.so opcache.so \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y nginx nano mc
+
 # Install Composer.
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && ln -s $(composer config --global home) /root/composer
 ENV PATH=$PATH:/root/composer/vendor/bin COMPOSER_ALLOW_SUPERUSER=1
+© 2020 GitHub, Inc.
