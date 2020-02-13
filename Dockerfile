@@ -1,6 +1,6 @@
 FROM php:5.4-fpm
 LABEL maintainer="dubzapkz@gmail.com"
-
+#DEBUG_COMMENT
 # Install PHP extensions and PECL modules.
 RUN buildDeps=" \
         libbz2-dev \
