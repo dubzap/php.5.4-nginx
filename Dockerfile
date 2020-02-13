@@ -31,10 +31,7 @@ RUN buildDeps=" \
     && docker-php-ext-install ldap \
     && docker-php-ext-install exif \
     && pecl install memcached-2.2.0 redis-4.3.0 zendopcache msgpack-0.5.7 dbase-5.1.0 igbinary-1.2.1 \
-    && docker-php-ext-enable igbinary \
-    && docker-php-ext-enable dbase \
-    && docker-php-ext-enable msgpack \
-    && docker-php-ext-enable memcached.so redis.so opcache.so \
+    && docker-php-ext-enable igbinary.so dbase.so msgpack.so memcached.so redis.so opcache.so \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
