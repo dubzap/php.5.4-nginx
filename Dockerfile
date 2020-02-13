@@ -52,5 +52,5 @@ RUN     \
         && ln -sf /dev/stderr /var/log/nginx/error.log
 WORKDIR /var/www/
 RUN     unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Almaty /etc/localtime
-RUN     echo "@reboot service nginx restart" >> /var/spool/cron/crontabs/root
+#RUN     echo "@reboot service nginx restart" >> /var/spool/cron/crontabs/root
 EXPOSE 80 443
