@@ -21,9 +21,10 @@ RUN buildDeps=" \
         libpq-dev \
         libxml2-dev \
         libxslt1-dev \
+        libgmp-dev \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
-    && docker-php-ext-install gettext gmp imap pcntl  shmop snmp sockets sysvmsg sysvsem sysvshm tidy wddx xmlrpc ftp dba pdo bcmath bz2 calendar iconv intl mbstring mcrypt mysql mysqli pdo_mysql pdo_pgsql pgsql soap xsl zip \
+    && docker-php-ext-install gettext imap pcntl  shmop snmp sockets sysvmsg sysvsem sysvshm tidy wddx xmlrpc ftp dba pdo bcmath bz2 calendar iconv intl mbstring mcrypt mysql mysqli pdo_mysql pdo_pgsql pgsql soap xsl zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
