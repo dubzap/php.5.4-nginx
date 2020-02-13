@@ -34,15 +34,10 @@ RUN buildDeps=" \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
-# Install Composer.
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && ln -s $(composer config --global home) /root/composer
-ENV PATH=$PATH:/root/composer/vendor/bin COMPOSER_ALLOW_SUPERUSER=1
 # Install NGINX
 RUN     \
-#       BUILD_DEPS='software-properties-common python-software-properties wget nano mc' \
         apt-get update \
-        && apt-get install --no-install-recommends -y wget nano mc \
+        && apt-get install --no-install-recommends -y wget htop nano mc net-tools \
         && wget -O - http://nginx.org/keys/nginx_signing.key | apt-key add - \
         && echo "deb http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
         && echo "deb-src http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
@@ -56,5 +51,6 @@ RUN     \
         && ln -sf /dev/stdout /var/log/nginx/access.log \
         && ln -sf /dev/stderr /var/log/nginx/error.log
 WORKDIR /var/www/
-
+#RUN     chkconfig nginx on
+RUN     unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Almaty /etc/localtime
 EXPOSE 80 443
