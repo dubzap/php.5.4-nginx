@@ -23,13 +23,17 @@ RUN buildDeps=" \
         libxslt1-dev \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
-    && docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mcrypt mysql mysqli pdo_mysql pdo_pgsql pgsql soap xsl zip \
+    && docker-php-ext-install gettext gmp imap pcntl  shmop snmp sockets sysvmsg sysvsem sysvshm tidy wddx xmlrpc ftp dba pdo bcmath bz2 calendar iconv intl mbstring mcrypt mysql m$
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+    && docker-php-ext-configure hash --with-mhash \
     && docker-php-ext-install ldap \
     && docker-php-ext-install exif \
-    && pecl install memcached-2.2.0 redis-4.3.0 zendopcache \
+    && pecl install memcached-2.2.0 redis-4.3.0 zendopcache msgpack-0.5.7 dbase-5.1.0 igbinary-1.2.1 \
+    && docker-php-ext-enable igbinary \
+    && docker-php-ext-enable dbase \
+    && docker-php-ext-enable msgpack \
     && docker-php-ext-enable memcached.so redis.so opcache.so \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
@@ -37,7 +41,7 @@ RUN buildDeps=" \
 # Install NGINX
 RUN     \
         apt-get update \
-        && apt-get install --no-install-recommends -y wget htop nano mc net-tools cron \
+        && apt-get install --no-install-recommends -y wget htop nano mc net-tools \
         && wget -O - http://nginx.org/keys/nginx_signing.key | apt-key add - \
         && echo "deb http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
         && echo "deb-src http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
