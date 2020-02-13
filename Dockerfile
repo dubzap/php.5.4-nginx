@@ -37,7 +37,7 @@ RUN buildDeps=" \
 # Install NGINX
 RUN     \
         apt-get update \
-        && apt-get install --no-install-recommends -y wget htop nano mc net-tools \
+        && apt-get install --no-install-recommends -y wget htop nano mc net-tools cron \
         && wget -O - http://nginx.org/keys/nginx_signing.key | apt-key add - \
         && echo "deb http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
         && echo "deb-src http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
@@ -52,4 +52,5 @@ RUN     \
         && ln -sf /dev/stderr /var/log/nginx/error.log
 WORKDIR /var/www/
 RUN     unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Almaty /etc/localtime
+RUN     echo "@reboot service nginx restart" >> /var/spool/cron/crontabs/root
 EXPOSE 80 443
