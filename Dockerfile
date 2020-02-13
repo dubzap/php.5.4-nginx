@@ -1,5 +1,5 @@
 FROM php:5.4-fpm
-LABEL maintainer="dubzap@gmail.com"
+LABEL maintainer="dubzapkz@gmail.com"
 
 # Install PHP extensions and PECL modules.
 RUN buildDeps=" \
