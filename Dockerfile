@@ -1,4 +1,4 @@
-ROM php:5.4-fpm
+FROM php:5.4-fpm
 LABEL maintainer="dubzapkz@gmail.com"
 
 # Install PHP extensions and PECL modules.
