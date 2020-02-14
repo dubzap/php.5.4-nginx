@@ -1,4 +1,4 @@
-FROM php:5.4-fpm
+ROM php:5.4-fpm
 LABEL maintainer="dubzapkz@gmail.com"
 
 # Install PHP extensions and PECL modules.
@@ -8,6 +8,7 @@ RUN buildDeps=" \
         libmysqlclient-dev \
         libsasl2-dev \
         libc-client-dev \
+        libkrb5-dev \
     " \
     runtimeDeps=" \
         curl \
@@ -25,7 +26,8 @@ RUN buildDeps=" \
         libgmp-dev \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
-    && docker-php-ext-install  gettext pcntl shmop sockets sysvmsg sysvsem sysvshm wddx xmlrpc ftp dba pdo bcmath bz2 calendar iconv intl mbstring mcrypt mysql mysqli pdo_mysql pdo_pgsql pgsql soap xsl zip \
+    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+    && docker-php-ext-install imap gettext pcntl shmop sockets sysvmsg sysvsem sysvshm wddx xmlrpc ftp dba pdo bcmath bz2 calendar iconv intl mbstring mcrypt mysql mysqli pdo_mysql pdo_pgsql pgsql soap xsl zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
@@ -37,7 +39,7 @@ RUN buildDeps=" \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
-# snpm imap tidy
+#  snpm tidy
 # Install NGINX
 RUN     \
         apt-get update \
