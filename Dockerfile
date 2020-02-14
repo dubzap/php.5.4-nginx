@@ -57,7 +57,7 @@ RUN     \
 WORKDIR /var/www/
 RUN     unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Almaty /etc/localtime
 RUN     mkdir /var/run/php
-#COPY ./configs/php-fpm.conf  /usr/local/etc/php-fpm.conf
-#COPY ./configs/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ./configs/php-fpm.conf  /usr/local/etc/php-fpm.conf
+COPY ./configs/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY ./configs/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80 443
