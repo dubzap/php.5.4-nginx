@@ -24,10 +24,12 @@ RUN buildDeps=" \
         libxml2-dev \
         libxslt1-dev \
         libgmp-dev \
+        libsnmp-dev \
+        libtidy-dev \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-install imap gettext pcntl shmop sockets sysvmsg sysvsem sysvshm wddx xmlrpc ftp dba pdo bcmath bz2 calendar iconv intl mbstring mcrypt mysql mysqli pdo_mysql pdo_pgsql pgsql soap xsl zip \
+    && docker-php-ext-install tidy snmp imap gettext pcntl shmop sockets sysvmsg sysvsem sysvshm wddx xmlrpc ftp dba pdo bcmath bz2 calendar iconv intl mbstring mcrypt mysql mysqli pdo_mysql pdo_pgsql pgsql soap xsl zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
@@ -39,11 +41,11 @@ RUN buildDeps=" \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
-#  snpm tidy
+#tidy
 # Install NGINX
 RUN     \
         apt-get update \
-        && apt-get install --no-install-recommends -y sendmail wget htop nano mc net-tools telnet \
+        && apt-get install --no-install-recommends -y wget sendmail htop nano mc net-tools telnet \
         && wget -O - http://nginx.org/keys/nginx_signing.key | apt-key add - \
         && echo "deb http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
         && echo "deb-src http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
