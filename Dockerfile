@@ -43,7 +43,7 @@ RUN buildDeps=" \
 # Install NGINX
 RUN     \
         apt-get update \
-        && apt-get install --no-install-recommends -y wget htop nano mc net-tools telnet \
+        && apt-get install --no-install-recommends -y sendmail wget htop nano mc net-tools telnet \
         && wget -O - http://nginx.org/keys/nginx_signing.key | apt-key add - \
         && echo "deb http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
         && echo "deb-src http://nginx.org/packages/ubuntu/ precise nginx" | tee -a /etc/apt/sources.list \
