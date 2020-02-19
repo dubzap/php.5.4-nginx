@@ -66,5 +66,4 @@ RUN     rm -rf /var/www/app
 COPY ./configs/php-fpm.conf  /usr/local/etc/php-fpm.conf
 COPY ./configs/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY ./configs/nginx.conf /etc/nginx/nginx.conf
-RUN service sendmail restart
 EXPOSE 80 443 25
