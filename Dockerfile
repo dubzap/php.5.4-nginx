@@ -41,7 +41,6 @@ RUN buildDeps=" \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
-#snmp
 # Install NGINX
 RUN     \
         apt-get update \
@@ -58,6 +57,11 @@ RUN     \
         # Forward request and error logs to docker log collector
         && ln -sf /dev/stdout /var/log/nginx/access.log \
         && ln -sf /dev/stderr /var/log/nginx/error.log
+# Install DKIM
+RUN     \
+        apt-get update \
+        apt-get install opendkim opendkim-tools
+        
 WORKDIR /var/www/
 RUN     unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Almaty /etc/localtime
 RUN     mkdir /var/run/php
