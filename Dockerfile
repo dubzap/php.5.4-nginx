@@ -60,7 +60,7 @@ RUN     \
 # Install DKIM
 RUN     \
         apt-get update \
-        && apt-get install opendkim opendkim-tools
+        && apt-get install -y opendkim opendkim-tools
         
 WORKDIR /var/www/
 RUN     unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Almaty /etc/localtime
